@@ -48,13 +48,14 @@ class PayoneServerChannelMethod(object):
         response = urllib.urlopen(PAYONE_URL, data).read()
         
         results = self.parse_response(response)
-        
-        if results.get('status') == 'ERROR':
+
+        status = results.get('status')
+        if status == 'ERROR':
             raise PayoneServerException(
                 results.get('errormessage', ''),
                 results.get('errorcode', None),
             )
-        
+
         return results
 
 class PayoneServerChannel(object):
