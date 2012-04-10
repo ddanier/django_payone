@@ -12,6 +12,8 @@ ENCODING_MAP = {
     'utf8': 'UTF-8',
 }
 
+PAYONE_DEBUG = getattr(settings, 'PAYONE_DEBUG', False)
+
 class PayoneServerChannelMethod(object):
     def __init__(self, channel, method):
         self.channel = channel
@@ -36,6 +38,11 @@ class PayoneServerChannelMethod(object):
         params.update({ # you cannot override the method!
             'request': self.method,
         })
+        if PAYONE_DEBUG:
+            print '-' * 79
+            print 'Payone request:'
+            print params
+            print '-' * 79
         
         data = urllib.urlencode([
             (
@@ -48,6 +55,11 @@ class PayoneServerChannelMethod(object):
         response = urllib.urlopen(PAYONE_URL, data).read()
         
         results = self.parse_response(response)
+        if PAYONE_DEBUG:
+            print '-' * 79
+            print 'Payone response:'
+            print results
+            print '-' * 79
 
         status = results.get('status')
         if status == 'ERROR':
