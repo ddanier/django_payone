@@ -2,7 +2,7 @@ from setuptools import setup, find_packages
 
 setup(
     name = "django_payone",
-    version = "0.1.0-2",
+    version = "0.1.0-3",
     description = 'Payone client and server API',
     author = 'David Danier',
     author_email = 'david.danier@team23.de',
